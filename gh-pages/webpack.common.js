@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 5:01:05 pm
+ * Modified on Tuesday, 10th November 2020 5:12:44 pm
  * *****************************************************************************
  */
 
@@ -25,7 +25,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'pages'),
+    path: path.resolve(__dirname, '..', 'docs'),
   },
   plugins: [
     new HtmlWebPackPlugin({

@@ -4,16 +4,15 @@
   "description": "Documentation for the @rs1/react-hooks package",
   "author": "RS1 Project",
   "license": "GPL-3.0+",
-  "repository": "https://github.com/RS1/react-hooks/docs",
-  "main": "pages/index.js",
+  "repository": "https://github.com/RS1/react-hooks/gh-pages",
   "source": "src/index.js",
   "engines": {
     "node": ">=10"
   },
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "webpack:watch": "webpack-dev-server --config webpack.dev.js",
+    "webpack:build": "webpack --config webpack.prod.js"
   },
   "browserslist": "since 2005",
   "devDependencies": {
@@ -45,9 +44,6 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
   },
-  "files": [
-    "pages"
-  ],
   "dependencies": {
     "react-markdown": "^5.0.2",
     "react-syntax-highlighter": "^15.3.0"
