@@ -1,7 +1,7 @@
 # ReactHooks
 A collection of useful custom React hooks.
 
-Here you can view a working example of every hook, with walk through sample code:
+Here you can view a working example of every hook, with walk through sample code:  
 [Demo site](https://rs1.github.io/react-hooks/)
 
 ### Available hooks
