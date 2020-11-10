@@ -1,15 +1,15 @@
 /*
  * *****************************************************************************
- * File: useSliderRef.js (/src/hooks/useSliderRef.js) | @rs1/rsplayer
+ * File: useSliderRef.js (/src/useSliderRef.js) | @rs1/react-hooks
  * Written by Andrea Corsini <andrea@rs1.it>
  * =============================================================
- * Created on Sunday, 8th November 2020 4:58:39 pm
+ * Created on Monday, 9th November 2020 10:55:10 am
  *
  * Copyright (c) 2020 RS1 Project
- * License: GNU General Public License v3.0 or later
- * http://www.gnu.org/licenses/gpl-3.0-standalone.html
+ * License: Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Monday, 9th November 2020 11:58:23 am
+ * Modified on Tuesday, 10th November 2020 5:00:12 pm
  * *****************************************************************************
  */
 
@@ -17,8 +17,23 @@ import { useState, useCallback } from 'react'
 import useRefEffect from './useRefEffect'
 import useDynamicRef from './useDynamicRef'
 
-export default (initial = null, initial_value = 0) => {
-    const [ref, callbackRef] = useDynamicRef(initial)
+const intersect = (min, val, max) => Math.min(Math.max(min, val), max)
+const properties = direction => {
+    switch (direction) {
+        case 'BTT':
+            return ['Y', 'Top', 'bottom', 'height', false]
+        case 'TTB':
+            return ['Y', 'Top', 'top', 'height', true]
+        case 'RTL':
+            return ['X', 'Left', 'right', 'width', false]
+        case 'LTR':
+        default:
+            return ['X', 'Left', 'left', 'width', true]
+    }
+}
+
+export default (initial = null, initial_value = 0, direction = 'LTR') => {
+    const [ref, callbackRef] = useDynamicRef(initial, false)
     const [hasFocus, setFocus] = useState(false)
     const [value, setValue] = useState(initial_value)
 
@@ -26,20 +41,24 @@ export default (initial = null, initial_value = 0) => {
         e => {
             if (!e || !ref) return
             const rect = ref.getBoundingClientRect()
-            const scrollX =
-                window.pageXOffset ??
-                (
-                    document.documentElement ||
-                    document.body.parentNode ||
-                    document.body
-                ).scrollLeft
+            const [dir, scroll, from, to, std] = properties(direction)
+            const { [from]: progress, [to]: maximum } = rect
 
-            let delta = e.pageX - (rect.left + scrollX)
-            delta = Math.max(delta, 0)
-            delta = Math.min(delta, rect.width)
-            setValue(delta / rect.width)
+            setValue(
+                intersect(
+                    0,
+                    (std ? 1 : -1) *
+                        (e[`page${dir}`] -
+                            progress +
+                            window[`page${dir}Offset`] ??
+                            (document.documentElement ||
+                                document.body.parentNode ||
+                                document.body)[`scroll${scroll}`]),
+                    maximum
+                ) / maximum
+            )
         },
-        [ref]
+        [ref, direction]
     )
     const mouseDown = useCallback(
         e => {

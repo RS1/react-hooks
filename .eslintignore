@@ -3,3 +3,4 @@ node_modules/
 npm/
 *.config.js
 *.md
+webpack.*

@@ -1,15 +1,15 @@
 /*
  * *****************************************************************************
- * File: useFullScreen.js (/src/hooks/useFullScreen.js) | @rs1/rsplayer
+ * File: useFullScreen.js (/src/useFullScreen.js) | @rs1/react-hooks
  * Written by Andrea Corsini <andrea@rs1.it>
  * =============================================================
- * Created on Sunday, 8th November 2020 4:58:39 pm
+ * Created on Monday, 9th November 2020 10:55:10 am
  *
  * Copyright (c) 2020 RS1 Project
- * License: GNU General Public License v3.0 or later
- * http://www.gnu.org/licenses/gpl-3.0-standalone.html
+ * License: Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Monday, 9th November 2020 11:57:21 am
+ * Modified on Tuesday, 10th November 2020 4:59:08 pm
  * *****************************************************************************
  */
 
@@ -82,19 +82,20 @@ export default ({
     onChange: _onChange = () => {},
     onError: _onError = () => {},
 }) => {
-    const onChange = useRef(_onChange)
-    const onError = useRef(_onError)
-
     const usable = Boolean(fsAPI) && Boolean(window.document[fsAPI.enabled])
     const [isActive, setActive] = useState(false)
 
-    useEffect(
-        () => {
-            if (!fsAPI) return
-            setActive(window.document[fsAPI.element] !== null)
-        },
-        !fsAPI ? [] : [window.document[fsAPI.element]]
-    )
+    const checkActive = () =>
+        fsAPI && setActive(window.document[fsAPI.element] !== null)
+
+    const onChange = useRef(() => {
+        checkActive()
+        _onChange()
+    })
+    const onError = useRef(() => {
+        checkActive()
+        _onError()
+    })
 
     useEffect(() => {
         if (!fsAPI) return
@@ -129,7 +130,8 @@ export default ({
         if (dryRun) return true
 
         const ret = ref[fsAPI.request]()
-        if (ret instanceof Promise) ret.then(onChange).catch(onError)
+        if (ret instanceof Promise)
+            ret.then(onChange.current).catch(onError.current)
         return ret
     }, [])
 
@@ -137,7 +139,8 @@ export default ({
         if (!usable) return false
 
         const ret = window.document[fsAPI.exit]()
-        if (ret instanceof Promise) ret.then(onChange).catch(onError)
+        if (ret instanceof Promise)
+            ret.then(onChange.current).catch(onError.current)
         return ret
     }, [])
 

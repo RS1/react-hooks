@@ -1,28 +1,21 @@
 /*
  * *****************************************************************************
- * File: babel.config.js (/babel.config.js) | @rs1/react-hooks
+ * File: webpack.prod.js (/webpack.prod.js) | @rs1/react-hooks-pages
  * Written by Andrea Corsini <andrea@rs1.it>
  * =============================================================
- * Created on Monday, 9th November 2020 10:54:20 am
+ * Created on Tuesday, 10th November 2020 4:42:03 pm
  *
  * Copyright (c) 2020 RS1 Project
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:57:50 pm
+ * Modified on Tuesday, 10th November 2020 5:01:26 pm
  * *****************************************************************************
  */
 
-const presets = [
-	["@babel/preset-env", {
-		targets: 'since 2005',
-		useBuiltIns: "usage",
-        corejs: 3,
-    }],
-	"@babel/preset-react",
- ];
-const plugins = [
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 
-];
-
-module.exports = { presets, plugins };
+module.exports = merge(common, {
+  mode: 'production',
+});

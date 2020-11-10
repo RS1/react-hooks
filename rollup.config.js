@@ -4,12 +4,12 @@
  * Written by Andrea Corsini <andrea@rs1.it>
  * =============================================================
  * Created on Monday, 9th November 2020 10:51:38 am
- * 
+ *
  * Copyright (c) 2020 RS1 Project
- * License: GNU General Public License v3.0 or later
- * http://www.gnu.org/licenses/gpl-3.0-standalone.html
- * 
- * Modified on Monday, 9th November 2020 11:37:29 am
+ * License: Apache License 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Modified on Tuesday, 10th November 2020 4:57:23 pm
  * *****************************************************************************
  */
 
@@ -36,7 +36,7 @@ export default {
             exclude: 'src/**',
         }),
         babel({
-            extensions: ['.jsx', '.js'], 
+            extensions: ['.jsx', '.js'],
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
         }),
