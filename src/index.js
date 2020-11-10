@@ -9,28 +9,17 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:58:05 pm
+ * Modified on Tuesday, 10th November 2020 8:23:04 pm
  * *****************************************************************************
  */
 
-import useAgentParser from './useAgentParser'
-import useAutoIdle from './useAutoIdle'
-import useDynamicRef from './useDynamicRef'
-import useFullScreen from './useFullScreen'
-import useKeyLinkedRef from './useKeyLinkedRef'
-import useListener from './useListener'
-import useRectRef from './useRectRef'
-import useRefEffect from './useRefEffect'
-import useSliderRef from './useSliderRef'
-
-export {
-    useAgentParser,
-    useAutoIdle,
-    useDynamicRef,
-    useFullScreen,
-    useKeyLinkedRef,
-    useListener,
-    useRectRef,
-    useRefEffect,
-    useSliderRef,
-}
+export { default as useAgentParser } from './useAgentParser'
+export { default as useAutoIdle } from './useAutoIdle'
+export { default as useDynamicRef } from './useDynamicRef'
+export { default as useFullScreen } from './useFullScreen'
+export { default as useKeyAction } from './useKeyAction'
+export { default as useKeyLinkedRef } from './useKeyLinkedRef'
+export { default as useListener } from './useListener'
+export { default as useRectRef } from './useRectRef'
+export { default as useRefEffect } from './useRefEffect'
+export { default as useSliderRef } from './useSliderRef'
