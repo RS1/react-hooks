@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:58:42 pm
+ * Modified on Tuesday, 10th November 2020 8:00:04 pm
  * *****************************************************************************
  */
 
@@ -19,7 +19,7 @@ const noop = () => {}
 
 export default (
     selector,
-    { callback = noop, wait = 5, condition = true, initial = false }
+    { callback = noop, wait = 5, condition = true, initial = false } = {}
 ) => {
     const idleTimer = useRef()
     const idleCondition = useRef(condition ?? true)

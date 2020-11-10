@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:59:08 pm
+ * Modified on Tuesday, 10th November 2020 7:59:05 pm
  * *****************************************************************************
  */
 
@@ -81,12 +81,12 @@ const fsMediaAPI = el => {
 export default ({
     onChange: _onChange = () => {},
     onError: _onError = () => {},
-}) => {
+} = {}) => {
     const usable = Boolean(fsAPI) && Boolean(window.document[fsAPI.enabled])
     const [isActive, setActive] = useState(false)
 
     const checkActive = () =>
-        fsAPI && setActive(window.document[fsAPI.element] !== null)
+        fsAPI?.element && setActive(window.document[fsAPI.element] !== null)
 
     const onChange = useRef(() => {
         checkActive()
@@ -96,6 +96,13 @@ export default ({
         checkActive()
         _onError()
     })
+
+    useEffect(
+        () => {
+            checkActive()
+        },
+        fsAPI?.element ? [window.document[fsAPI.element]] : []
+    )
 
     useEffect(() => {
         if (!fsAPI) return
