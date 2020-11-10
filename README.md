@@ -1,6 +1,11 @@
 # ReactHooks
 A collection of useful custom React hooks.
 
+To install this package run:
+```zsh
+npm i -D @rs1/react-hooks
+```
+
 Here you can view a working example of every hook, with walk through sample code:  
 [Demo site](https://rs1.github.io/react-hooks/)
 
