@@ -9,15 +9,26 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 8:18:58 pm
+ * Modified on Wednesday, 11th November 2020 7:28:19 pm
  * *****************************************************************************
  */
 import { useEffect } from 'react'
 
-export default (key = 0, callback = () => {}, deps = []) => {
+export default (
+    key = 0,
+    callback = () => {},
+    deps = [],
+    allowInputs = true
+) => {
     useEffect(() => {
         if (!key) return
-        const cb = e => e.keyCode === key && callback()
+        const cb = e =>
+            e &&
+            !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA'].includes(
+                e.target.nodeName
+            ) &&
+            e.keyCode === key &&
+            callback()
         window.addEventListener('keydown', cb)
         return () => window.removeEventListener('keydown', cb)
     }, [key, ...deps])
