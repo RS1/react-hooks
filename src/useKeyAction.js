@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Wednesday, 11th November 2020 7:28:19 pm
+ * Modified on Wednesday, 11th November 2020 7:30:51 pm
  * *****************************************************************************
  */
 import { useEffect } from 'react'
@@ -24,9 +24,10 @@ export default (
         if (!key) return
         const cb = e =>
             e &&
-            !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA'].includes(
-                e.target.nodeName
-            ) &&
+            (allowInputs ||
+                !['INPUT', 'SELECT', 'BUTTON', 'TEXTAREA'].includes(
+                    e.target.nodeName
+                )) &&
             e.keyCode === key &&
             callback()
         window.addEventListener('keydown', cb)
