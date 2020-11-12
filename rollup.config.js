@@ -9,13 +9,14 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:57:23 pm
+ * Modified on Thursday, 12th November 2020 11:39:30 am
  * *****************************************************************************
  */
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
+import replace from '@rollup/plugin-replace';
 import { terser } from "rollup-plugin-terser";
 import pkg from './package.json';
 
@@ -40,6 +41,10 @@ export default {
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
         }),
+		replace({
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            exclude: 'node_modules/**',
+		}),
         terser(),
     ],
     external: [ ...Object.keys(pkg.peerDependencies), ...Object.keys(pkg.dependencies) ],
