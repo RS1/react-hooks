@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 8:23:04 pm
+ * Modified on Friday, 13th November 2020 11:18:13 am
  * *****************************************************************************
  */
 
@@ -20,6 +20,7 @@ export { default as useFullScreen } from './useFullScreen'
 export { default as useKeyAction } from './useKeyAction'
 export { default as useKeyLinkedRef } from './useKeyLinkedRef'
 export { default as useListener } from './useListener'
+export { default as useMediaQuery } from './useMediaQuery'
 export { default as useRectRef } from './useRectRef'
 export { default as useRefEffect } from './useRefEffect'
 export { default as useSliderRef } from './useSliderRef'
