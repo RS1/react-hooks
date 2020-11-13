@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 5:03:04 pm
+ * Modified on Friday, 13th November 2020 11:51:00 am
  * *****************************************************************************
  */
 
@@ -26,6 +26,7 @@ export const hooks = [
     'useFullScreen',
     'useKeyLinkedRef',
     'useListener',
+    'useMediaQuery',
     'useRectRef',
     'useRefEffect',
     'useSliderRef',
