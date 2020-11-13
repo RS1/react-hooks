@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Friday, 13th November 2020 11:17:51 am
+ * Modified on Friday, 13th November 2020 11:58:50 am
  * *****************************************************************************
  */
 
@@ -19,27 +19,40 @@ const pToQuery = p =>
     Object.entries(p).reduce(
         (acc, [key, cur], idx, src) => ({
             ...acc,
-            [key]: window.matchMedia(
-                `(min-width: ${cur}px)${
-                    (idx && ` and (max-width: ${--src[--idx] | 0}px)`) || ''
-                }`
-            ).matches,
+            [key]: `(min-width: ${cur}px)${
+                (idx && ` and (max-width: ${--src[--idx] | 0}px)`) || ''
+            }`,
+        }),
+        {}
+    )
+
+const qToMatch = q =>
+    Object.entries(q).reduce(
+        (acc, [key, cur]) => ({
+            ...acc,
+            [key]: window.matchMedia(cur).matches,
         }),
         {}
     )
 
 export default (sizes = [1920, 1024, 768, 414]) => {
     const props = useMemo(() => ({ ...sizes }), [sizes])
-    const [mq, setMQ] = useState(pToQuery(props))
+    const [queries, setQueries] = useState({})
+    const [matches, setMatches] = useState({})
 
     useEffect(() => {
-        const update = () => setMQ(pToQuery(props))
+        const update = () => setQueries(pToQuery(props))
+        update()
         window.addEventListener('resize', update)
         return () => window.removeEventListener('resize', update)
     }, [props])
 
-    const vals = Object.values(mq)
+    useEffect(() => {
+        setMatches(qToMatch(queries))
+    }, [queries])
+
+    const vals = Object.values(matches)
     const none = !vals.every(v => v)
 
-    return Array.isArray(sizes) ? [...vals, none] : { ...mq, none }
+    return Array.isArray(sizes) ? [...vals, none] : { ...matches, none }
 }
