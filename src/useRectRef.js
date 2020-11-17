@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 4:59:48 pm
+ * Modified on Tuesday, 17th November 2020 11:10:57 am
  * *****************************************************************************
  */
 
@@ -27,5 +27,5 @@ export default () => {
         return () => window.removeEventListener('resize', update)
     }, [])
 
-    return [rect, ref]
+    return [rect, ref, update]
 }
