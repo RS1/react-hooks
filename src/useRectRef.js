@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 17th November 2020 12:00:05 pm
+ * Modified on Tuesday, 17th November 2020 12:04:28 pm
  * *****************************************************************************
  */
 
@@ -23,10 +23,10 @@ export default ({ useOffset = false } = {}) => {
         setRect(
             useOffset && ref?.current
                 ? {
-                      x: ref?.current?.offsetTop,
-                      y: ref?.current?.offsetLeft,
+                      top: ref?.current?.offsetTop,
+                      left: ref?.current?.offsetLeft,
                       width: ref?.current?.offsetWidth,
-                      left: ref?.current?.offsetHeight,
+                      height: ref?.current?.offsetHeight,
                   }
                 : ref?.current?.getBoundingClientRect() ?? {}
         )
