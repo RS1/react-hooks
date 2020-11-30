@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 17th November 2020 12:04:28 pm
+ * Modified on Monday, 30th November 2020 4:17:04 pm
  * *****************************************************************************
  */
 
@@ -34,7 +34,11 @@ export default ({ useOffset = false } = {}) => {
     useEffect(() => {
         update()
         window.addEventListener('resize', update)
-        return () => window.removeEventListener('resize', update)
+        window.addEventListener('orientationchange', update)
+        return () => {
+            window.removeEventListener('resize', update)
+            window.removeEventListener('orientationchange', update)
+        }
     }, [])
 
     return [rect, ref, update]

@@ -9,7 +9,7 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Friday, 13th November 2020 12:11:31 pm
+ * Modified on Monday, 30th November 2020 4:17:25 pm
  * *****************************************************************************
  */
 
@@ -35,7 +35,11 @@ export default (sizes = [1920, 1024, 768, 414]) => {
     useEffect(() => {
         const update = () => setMQ(pToQuery(props))
         window.addEventListener('resize', update)
-        return () => window.removeEventListener('resize', update)
+        window.addEventListener('orientationchange', update)
+        return () => {
+            window.removeEventListener('resize', update)
+            window.removeEventListener('orientationchange', update)
+        }
     }, [props])
 
     const vals = Object.values(mq)
