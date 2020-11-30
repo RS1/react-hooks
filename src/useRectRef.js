@@ -9,14 +9,15 @@
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Monday, 30th November 2020 4:17:04 pm
+ * Modified on Monday, 30th November 2020 4:34:30 pm
  * *****************************************************************************
  */
 
 import { useState, useRef, useEffect } from 'react'
 
-export default ({ useOffset = false } = {}) => {
+export default ({ useOffset = false, delay = false } = {}) => {
     const ref = useRef()
+    const delayer = useRef()
     const [rect, setRect] = useState({})
 
     const update = () =>
@@ -31,15 +32,21 @@ export default ({ useOffset = false } = {}) => {
                 : ref?.current?.getBoundingClientRect() ?? {}
         )
 
+    const fn = () => {
+        if (!delay) return update()
+        if (delayer.current) clearTimeout(delayer.current)
+        delayer.current = setTimeout(update, delay)
+    }
+
     useEffect(() => {
-        update()
-        window.addEventListener('resize', update)
-        window.addEventListener('orientationchange', update)
+        fn()
+        window.addEventListener('resize', fn)
+        window.addEventListener('orientationchange', fn)
         return () => {
-            window.removeEventListener('resize', update)
-            window.removeEventListener('orientationchange', update)
+            window.removeEventListener('resize', fn)
+            window.removeEventListener('orientationchange', fn)
         }
     }, [])
 
-    return [rect, ref, update]
+    return [rect, ref, fn]
 }
