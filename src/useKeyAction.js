@@ -5,11 +5,11 @@
  * =============================================================
  * Created on Tuesday, 10th November 2020 8:13:09 pm
  *
- * Copyright (c) 2020 RS1 Project
+ * Copyright (c) 2020-2021 Andrea Corsini T/A RS1 Project - All rights reserved.
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Wednesday, 11th November 2020 7:30:51 pm
+ * Modified on Friday, 21st May 2021 11:30:21 am
  * *****************************************************************************
  */
 import { useEffect } from 'react'
@@ -29,7 +29,7 @@ export default (
                     e.target.nodeName
                 )) &&
             e.keyCode === key &&
-            callback()
+            callback(e)
         window.addEventListener('keydown', cb)
         return () => window.removeEventListener('keydown', cb)
     }, [key, ...deps])
