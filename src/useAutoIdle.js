@@ -5,11 +5,11 @@
  * =============================================================
  * Created on Monday, 9th November 2020 10:55:10 am
  *
- * Copyright (c) 2020 RS1 Project
+ * Copyright (c) 2020-2022 Andrea Corsini T/A RS1 Project - All rights reserved.
  * License: Apache License 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Modified on Tuesday, 10th November 2020 8:00:04 pm
+ * Modified on Thursday, 27th January 2022 3:02:30 pm
  * *****************************************************************************
  */
 
@@ -25,12 +25,6 @@ export default (
     const idleCondition = useRef(condition ?? true)
     const [isIdle, setIdle] = useState(initial ?? false)
 
-    useEffect(() => {
-        idleCondition.current = condition ?? true
-        if (!idleCondition.current && idleTimer.current)
-            clearTimeout(idleTimer.current)
-    }, [condition])
-
     const goIdle = useCallback(
         () => idleCondition.current === true && setIdle(true),
         [idleCondition.current]
@@ -41,6 +35,16 @@ export default (
         idleTimer.current = setTimeout(goIdle, (wait ?? 5) * 1000)
         setIdle(false)
     }, [idleTimer.current, wait, goIdle])
+
+    useEffect(() => {
+        idleCondition.current = condition ?? true
+        if (!idleCondition.current && idleTimer.current) {
+            clearTimeout(idleTimer.current)
+            idleTimer.current = null
+        } else if (condition && !idleTimer.current) {
+            resetIdle()
+        }
+    }, [condition, resetIdle])
 
     useEffect(() => {
         // eslint-disable-next-line prettier/prettier
